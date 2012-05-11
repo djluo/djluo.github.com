@@ -3,7 +3,7 @@ html, body {
   background-color: #eee;
 }
 .navbar {
-  margin-bottom: 0;
+  margin-bottom: 20px;
 }
 .container > footer {
   margin-top: 20px;
@@ -68,4 +68,3 @@ html, body {
 	border:1px solid #4C964D;
 	color:#FFF;
 }
-	
