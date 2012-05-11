@@ -4,9 +4,7 @@ title: XiaLuXing
 ---
 {% include JB/setup %}
 
-#### 用GIT来管理blog
-
-用textile写文档还是很顺手的，现在在加上GIT 估计我就能坚持写blog了。
+[侠路行](http://xialuxing.com/)这个域名买到10年后了,然后在将总的博客上[发现](http://www.worldhello.net/2011/11/29/jekyll-based-blog-setup.html)可以用Git来管理博客,太好了,这回估计我会坚持写下去.不怕一段时间没打理就消失不见.
 
 <hr>
 ####  最近的日志
