@@ -1,0 +1,10 @@
+---
+layout: post
+title: "Hi,Dj"
+description: "hi"
+category: Blog
+tags: []
+---
+{% include JB/setup %}
+
+开张大吉
