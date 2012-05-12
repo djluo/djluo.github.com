@@ -67,6 +67,10 @@ task :post do
     post.puts "tags: []"
     post.puts "---"
     post.puts "{% include JB/setup %}"
+    post.puts " "
+    post.puts "<!--"
+    post.puts " vim: expandtab tabstop=4 shiftwidth=4 softtabstop=4"
+    post.puts "-->"
   end
 end # task :post
 

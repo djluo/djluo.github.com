@@ -67,4 +67,6 @@ cd djluo.github.com
 jekyll --server
 #可以用游览器访问了 http://127.0.0.1:4000/
 {% endhighlight %}
-
+<!--
+ vim: expandtab tabstop=4 shiftwidth=4 softtabstop=4
+-->
