@@ -1,0 +1,104 @@
+---
+layout: post
+title: "sftp_chroot"
+description: ""
+category: 
+tags: []
+---
+{% include JB/setup %}
+ 
+<!--
+ vim: expandtab tabstop=4 shiftwidth=4 softtabstop=4
+-->
+
+h1. Sftp限制目录
+
+h3. 环境
+
+# openssh >= 5.0
+# 本例是RHEL6系列自带的 @OpenSSH_5.3p1@
+
+h3. 实现的功能
+
+# 不允许sftp用户登录shell
+# 限制sftp只能访问下面这2个目录：
+<pre>
+/home/party/html/effect
+/home/party/html/icon
+</pre>
+
+h3. 配置
+
+# 添加受限用户
+<pre>
+/usr/sbin/useradd -s /sbin/nologin -d /var/empty/upload upload
+</pre>
+# 添加用户公钥
+<pre>
+mkdir /var/empty/upload/.ssh
+echo "ssh-rsa AAAAB3N....." >>authorized_keys
+</pre>
+# 新建限制目录并 *限定权限*
+<pre>
+mkdir -p /var/empty/upload/party/{effect,icon}
+chown -R root.root /var/empty/upload/party
+</pre>
+# 配置mount的bind方法
+<pre>
+cat<<EOF >>/etc/fstab
+/home/party/html/effect /var/empty/upload/party/effect none bind 0 0
+/home/party/html/icon   /var/empty/upload/party/icon   none bind 0 0
+EOF
+mount -a
+</pre>
+# 配置 @sshd_config@
+<pre>
+cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
+sed -i 's/^Subsystem.*/#&\nSubsystem sftp internal-sftp/' /etc/ssh/sshd_config 
+cat<<EOF >>/etc/ssh/sshd_config 
+Match User upload
+ChrootDirectory /var/empty/uploadpload/party
+X11Forwarding no
+AllowTcpForwarding no
+EOF
+</pre>
+# 检查(在Xshell的local shell里)
+<pre>
+ssh upload@192.168.0.92 932
+sftp upload@192.168.0.92 932
+</pre>
+<pre>
+Xshell:\> ssh upload@192.168.0.92 932
+
+
+Connecting to 192.168.0.92:932...
+Connection established.
+To escape to local shell, press 'Ctrl+Alt+]'.
+
+WARNING! The remote SSH server rejected agent-forwarding request.
+Last login: Mon Jun 11 17:01:18 2012 from 192.168.0.24
+/sbin/nologin: No such file or directory
+
+Connection closed.
+
+Type `help' to learn how to use Xshell prompt.
+Xshell:\> 
+Connection closed by foreign host.
+Xshell:\> sftp upload@192.168.0.92 932
+
+
+Connecting to 192.168.0.92:932...
+Connection established.
+To escape to local shell, press 'Ctrl+Alt+]'.
+
+Your current local directory is
+D:\Program Files\NetSarang\Xshell 4
+
+Type `help' to browse available commnands.
+sftp:/> ls
+drwxrwxr-x    4 507      508          4096 Jun 11 08:53 icon
+drwxr-xr-x    4 0        0            4096 Jun 11 08:48 .
+drwxrwxr-x    4 507      508          4096 Jun  6 02:07 effect
+drwxr-xr-x    4 0        0            4096 Jun 11 08:48 ..
+sftp:/> 
+</pre>
