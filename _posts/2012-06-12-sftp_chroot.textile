@@ -67,38 +67,3 @@ EOF
 ssh upload@192.168.0.92 932
 sftp upload@192.168.0.92 932
 </pre>
-<pre>
-Xshell:\> ssh upload@192.168.0.92 932
-
-
-Connecting to 192.168.0.92:932...
-Connection established.
-To escape to local shell, press 'Ctrl+Alt+]'.
-
-WARNING! The remote SSH server rejected agent-forwarding request.
-Last login: Mon Jun 11 17:01:18 2012 from 192.168.0.24
-/sbin/nologin: No such file or directory
-
-Connection closed.
-
-Type `help' to learn how to use Xshell prompt.
-Xshell:\> 
-Connection closed by foreign host.
-Xshell:\> sftp upload@192.168.0.92 932
-
-
-Connecting to 192.168.0.92:932...
-Connection established.
-To escape to local shell, press 'Ctrl+Alt+]'.
-
-Your current local directory is
-D:\Program Files\NetSarang\Xshell 4
-
-Type `help' to browse available commnands.
-sftp:/> ls
-drwxrwxr-x    4 507      508          4096 Jun 11 08:53 icon
-drwxr-xr-x    4 0        0            4096 Jun 11 08:48 .
-drwxrwxr-x    4 507      508          4096 Jun  6 02:07 effect
-drwxr-xr-x    4 0        0            4096 Jun 11 08:48 ..
-sftp:/> 
-</pre>
